@@ -1,0 +1,27 @@
+## VHDL Code for CLK generation (for Modelsim) ##
+
+library ieee;
+use ieee.std_logic_1164.all;
+entity EX1 is
+port ( clk: out std_logic);
+end EX1;
+architecture beh of EX1 is
+constant clk_period : time := 10 ns;
+begin
+-- Clock process definition
+clk_process: process
+begin
+clk <= '1';
+wait for clk_period/2;
+clk <= '0';
+wait for clk_period/2;
+end process;
+end beh;
+
+## Steps for Simulation (in Modelsim without Testbench) ##
+
+vcom name_of_file.vhd        ## Eg- vcom EX1.vhd ##
+vsim name_of_file            ## Eg - vsim EX1 ##
+run time_duration            ## run 50 ns ( this doesnt work for me for now, it starts the wave from 50ns ##
+add wave name_of_the_wave    ## add wave clk ##
+run -all
